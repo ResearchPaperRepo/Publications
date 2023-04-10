@@ -1,0 +1,45 @@
+import re
+import PyPDF2
+
+# Open the PDF file
+pdf_file = open('multi_agent.pdf', 'rb')
+
+# Create a PDF reader object
+pdf_reader = PyPDF2.PdfFileReader(pdf_file)
+
+# Get the number of pages in the PDF
+num_pages = pdf_reader.getNumPages()
+
+# Define a regular expression pattern to match author names
+author_pattern = re.compile(r'author: (.*)')
+keywords_pattern = re.compile(r'keywords: (.*)')
+abstract_pattern = re.compile(r'abstract (.*)')
+
+# Loop through each page in the PDF
+for page_num in range(num_pages):
+    # Get the page object
+    page = pdf_reader.getPage(page_num)
+    
+    # Get the text on the page
+    page_text = page.extractText().lower()
+    
+    # Search for author names in the page text
+    author_match = author_pattern.search(page_text)
+    if author_match:
+        # If an author name is found, extract it and print it
+        author_name = author_match.group(1)
+        print('Author Name:', author_name)
+    
+    keywords_match = keywords_pattern.search(page_text)
+    if keywords_match:
+        keywords = keywords_match.group(1)
+        print('Keywords:', keywords)
+
+    abstract_match = abstract_pattern.search(page_text)
+    if abstract_match:
+        abstract = abstract_match.group(1)
+        print("Abstract: ", abstract)
+
+
+# Close the PDF file
+pdf_file.close()

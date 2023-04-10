@@ -1,0 +1,35 @@
+.input_text,
+.file_input {
+  margin-bottom: 2rem;
+}
+
+.form {
+  width: 100%;
+  /* max-width: 60%; */
+  text-align: center;
+  padding: 1rem;
+}
+
+.file_input label svg {
+  width: 10%;
+  cursor: pointer;
+}
+
+.file_input input {
+  display: none;
+}
+
+.button button {
+  font: inherit;
+  cursor: pointer;
+  color: #77002e;
+  border: 1px solid #77002e;
+  background-color: transparent;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+}
+
+.button button:hover,
+.button button:active {
+  background-color: #ffe2ed;
+}
