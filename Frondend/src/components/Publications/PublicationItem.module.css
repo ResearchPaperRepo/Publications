@@ -85,12 +85,7 @@
   gap: 1rem;
 }
 
-.actions {
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.actions {
+.button {
   font: inherit;
   cursor: pointer;
   color: #77002e;
@@ -100,8 +95,8 @@
   border-radius: 4px;
 }
 
-.actions:hover,
-.actions:active {
+.button:hover,
+.button:active {
   background-color: #ffe2ed;
 }
 

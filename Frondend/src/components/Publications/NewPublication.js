@@ -1,10 +1,11 @@
 import Card from "../UI/Card";
 import classes from "./NewPublication.module.css";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 function NewPublication() {
   const [fileName, setFileName] = useState("");
+  const [addPublicationIconClick, setAddPublicationIconClick] = useState(false);
 
   const inputFileChangeHandler = (event) => {
     const input = event.target;
@@ -17,7 +18,31 @@ function NewPublication() {
     setFileName(file_name);
   };
 
-  return (
+  const addNewPublicationHandler = () => {
+    setAddPublicationIconClick(true);
+  };
+
+  const formCloseHandler = () => {
+    setAddPublicationIconClick(false);
+  };
+
+  const addPublicationIcon = (
+    <Card classes={classes.add_publication} onClick={addNewPublicationHandler}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="currentColor"
+        class="bi bi-plus"
+        viewBox="0 0 16 16"
+      >
+        {" "}
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />{" "}
+      </svg>
+    </Card>
+  );
+
+  const addPublication = (
     <Card>
       <form className={classes.form}>
         <div className={classes.input_text}>
@@ -45,10 +70,20 @@ function NewPublication() {
           {fileName && <p>{fileName}</p>}
         </div>
         <div className={classes.button}>
+          <button type="button" onClick={formCloseHandler}>
+            Close
+          </button>
           <button type="submit">Submit</button>
         </div>
       </form>
     </Card>
+  );
+
+  return (
+    <Fragment>
+      {!addPublicationIconClick && addPublicationIcon}{" "}
+      {addPublicationIconClick && addPublication}
+    </Fragment>
   );
 }
 

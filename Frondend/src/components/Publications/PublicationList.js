@@ -1,6 +1,7 @@
 import classes from "./PublicationList.module.css";
 import PublicationItem from "./PublicationItem";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import NewPublication from "./NewPublication";
 
 function PublicationList() {
   const [publications, setPublications] = useState([]);
@@ -21,20 +22,23 @@ function PublicationList() {
   }, []);
 
   return (
-    <ul className={classes.list}>
-      {publications.map((publication) => (
-        <PublicationItem
-          key={publication.id}
-          image={publication.image}
-          title={publication.title}
-          pdf_link={publication.pdf_link}
-          authors={publication.authors}
-          keywords={publication.keywords}
-          abstract={publication.abstract}
-          file_name={publication.fileName}
-        />
-      ))}
-    </ul>
+    <Fragment>
+      <NewPublication></NewPublication>
+      <ul className={classes.list}>
+        {publications.map((publication) => (
+          <PublicationItem
+            key={publication.id}
+            image={publication.image}
+            title={publication.title}
+            pdf_link={publication.pdf_link}
+            authors={publication.authors}
+            keywords={publication.keywords}
+            abstract={publication.abstract}
+            file_name={publication.fileName}
+          />
+        ))}
+      </ul>
+    </Fragment>
   );
 }
 

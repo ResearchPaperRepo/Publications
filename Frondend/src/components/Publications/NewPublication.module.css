@@ -27,9 +27,15 @@
   background-color: transparent;
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
+  margin-right: 1rem;
 }
 
 .button button:hover,
 .button button:active {
   background-color: #ffe2ed;
+}
+
+.add_publication {
+  text-align: center;
+  cursor: pointer;
 }

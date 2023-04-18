@@ -6,7 +6,7 @@
   justify-content: space-between;
   /* background-color: #77002e; */
   background: linear-gradient(180deg, #7b1c1c 30%, rgb(125, 80, 80));
-  padding: 0 10%;
+  padding: 0 5%;
   top: 0;
   position: fixed;
   z-index: 10;
@@ -16,7 +16,20 @@
   font-size: 2rem;
   color: white;
   font-weight: bold;
-  font-size: x-large;
+  font-size: large;
+}
+
+.button {
+  background: none;
+  color: rgb(225, 225, 225);
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+  color: white;
 }
 
 .header ul {
@@ -33,12 +46,11 @@
 
 .header a {
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: rgb(225, 225, 225);
 }
 
 .header a:hover,
-.header a:active,
-.header a.active {
+.header a:active {
   color: white;
 }

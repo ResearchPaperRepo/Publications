@@ -33,7 +33,7 @@ function PublicationItem(props) {
             ))}
           </ul>
           <a href={props.pdf_link} target="_blank" className={classes.pdf_link}>
-            <button className={classes.actions}>
+            <button className={classes.button}>
               {props.file_name.slice(0, -5)} PDF
             </button>
           </a>
