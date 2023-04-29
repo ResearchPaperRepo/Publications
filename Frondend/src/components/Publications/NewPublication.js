@@ -4,18 +4,18 @@ import classes from "./NewPublication.module.css";
 import { Fragment, useState } from "react";
 
 function NewPublication() {
-  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState(null);
   const [addPublicationIconClick, setAddPublicationIconClick] = useState(false);
 
   const inputFileChangeHandler = (event) => {
     const input = event.target;
-    const file_name = input.files[0].name;
-    if (!file_name.endsWith(".pdf")) {
+    const file = input.files[0];
+    if (!file.name.endsWith(".pdf")) {
       alert("Invalid File Format, Please Upload Text PDF's only");
-      setFileName("");
+      setFile(null);
       return;
     }
-    setFileName(file_name);
+    setFile(file);
   };
 
   const addNewPublicationHandler = () => {
@@ -25,6 +25,33 @@ function NewPublication() {
   const formCloseHandler = () => {
     setAddPublicationIconClick(false);
   };
+
+  async function submitHandler(event) {
+    event.preventDefault();
+    const formData = new FormData();
+
+    const token = sessionStorage.getItem("publications_token");
+    const email = sessionStorage.getItem("publications_email");
+
+    if (!token || !email) {
+      return;
+    }
+
+    formData.append("data", file);
+    formData.append("email", email);
+
+    const response = await fetch("http://localhost:5000/api/v1/newDoc", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+        // "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + token,
+      },
+    });
+    const result = await response.json();
+    setAddPublicationIconClick(false);
+  }
 
   const addPublicationIcon = (
     <Card classes={classes.add_publication} onClick={addNewPublicationHandler}>
@@ -44,7 +71,7 @@ function NewPublication() {
 
   const addPublication = (
     <Card>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.input_text}>
           <p>Upload New Publication ( Only Text PDF is supported )</p>
         </div>
@@ -67,7 +94,7 @@ function NewPublication() {
             accept="file"
             onChange={inputFileChangeHandler}
           />
-          {fileName && <p>{fileName}</p>}
+          {file && file.name && <p>{file.name}</p>}
         </div>
         <div className={classes.button}>
           <button type="button" onClick={formCloseHandler}>

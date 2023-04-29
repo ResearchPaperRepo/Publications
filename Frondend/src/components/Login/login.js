@@ -1,10 +1,12 @@
-import { useRouter } from "next/router";
+import Router from "next/router";
 import Card from "../UI/Card";
 import useInput from "../hooks/use-input";
 import classes from "./login.module.css";
+import { useContext } from "react";
+import { AuthContext } from "@/contexts/AuthProvider";
 
 function Login() {
-  const router = useRouter();
+  const { setLoggedIn } = useContext(AuthContext);
 
   const {
     value: enteredEmail,
@@ -44,24 +46,38 @@ function Login() {
     ? `${classes.input} ${classes.invalid}`
     : `${classes.input}`;
 
-  console.log(
-    emailInputHasError,
-    passwordInputHasError,
-    emailInputClass,
-    passwordInputClass
-  );
-  const formLoginHandler = (event) => {
+  const formLoginHandler = async (event) => {
     event.preventDefault();
 
     if (!enteredPasswordIsValid || !enteredEmailIsValid) {
       return;
     }
 
-    localStorage.setItem("publications_email_id", enteredEmail);
-    useRouter.push("/home");
+    const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    const responseData = await response.json();
+    const { email, token } = responseData;
+
+    sessionStorage.setItem("publications_token", token);
+    sessionStorage.setItem("publications_email", email);
+
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+
+    setLoggedIn(true);
     resetPasswordInput();
     resetEmailInput();
+    Router.push("/");
   };
   return (
     <Card classes={classes.bgImage}>

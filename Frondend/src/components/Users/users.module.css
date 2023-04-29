@@ -1,18 +1,30 @@
-.welcome_text {
-  margin-top: 1rem;
+.table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  padding: auto;
+  border: 1px solid rgb(183, 31, 31);
 }
 
-.form {
-  padding: 2rem 1rem;
+.td,
+.th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid rgb(237, 165, 165);
+  border-collapse: collapse;
 }
 
-.form_grid {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 8fr 10fr;
+.tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.add_user {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .button {
@@ -21,7 +33,7 @@
   color: #77002e;
   border: 1px solid #77002e;
   background-color: transparent;
-  padding: 0.5rem 1.5rem;
+  padding: 0.3rem 1.5rem;
   border-radius: 4px;
   grid-column: 1 / 3;
   justify-self: center;
@@ -32,25 +44,19 @@
   background-color: #ffe2ed;
 }
 
-.input_div {
-  justify-self: flex-start;
-  text-align: start;
-}
-
 .input {
   border: 1px solid #77002e;
   border-radius: 4px;
   height: 2rem;
-  padding: 3px;
+  padding: 2px;
 }
 
 .invalid {
   border: 1px solid #b40e0e;
   background-color: #fddddd;
 }
-
 .label {
-  justify-self: flex-end;
+  padding-left: 8%;
 }
 
 .error_text {
@@ -62,4 +68,8 @@
   background-image: url("../../data/login_background.jpg");
   background-repeat: no-repeat;
   backdrop-filter: blur(50px);
+}
+
+.spinner {
+  justify-content: center;
 }

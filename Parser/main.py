@@ -1,10 +1,7 @@
-from PDFParser import PDFParser
 import sys
-
-def main(pdfPath):
-    pdfPath = pdfPath.strip()
-    pdfParser = PDFParser(pdfPath)
-
+from PDFParser import PDFParser
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    pdfFilePath = sys.argv[1].strip()
+    PDFParser(pdfFilePath)
+    sys.stdout.flush()
