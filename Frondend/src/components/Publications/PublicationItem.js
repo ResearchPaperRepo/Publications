@@ -10,7 +10,7 @@ function PublicationItem(props) {
         </div>
         <div className={classes.content}>
           <h3>Title:</h3>
-          <p>{props.title}</p>
+          <p className={classes.title}>{props.title}</p>
           <p>
             <b>Authors:</b>
           </p>

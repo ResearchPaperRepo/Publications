@@ -13,31 +13,33 @@ function UsersList() {
   useEffect(() => {
     const token = sessionStorage.getItem("publications_token");
     const email = sessionStorage.getItem("publications_email");
-    if (token && email === "ssaikuma@ttu.edu") {
+    if (token) {
       setLoggedIn(true);
     }
-    const fetchUsers = async () => {
-      const response = await fetch(
-        "http://localhost:5000/api/v1/access/registeredUsers",
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            Authorization: "Bearer " + token,
-          },
+    async function fetchUsers() {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/v1/access/registeredUsers",
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Something went wrong!");
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
+        const responseData = await response.json();
+        setUsers(responseData["users"]);
+      } catch (error) {
+        console.log(error);
       }
-      const responseData = await response.json();
-      setUsers(responseData["users"]);
-    };
+    }
 
-    fetchUsers().catch((error) => {
-      console.log(error);
-    });
+    fetchUsers();
   }, []);
 
   const {
@@ -52,8 +54,8 @@ function UsersList() {
       value.trim() !== "" &&
       value.match(
         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      ) &&
-      value.endsWith("ttu.edu")
+      )
+    // && value.endsWith("ttu.edu")
   );
 
   const emailInputClass = emailInputHasError
@@ -81,9 +83,6 @@ function UsersList() {
       throw new Error("Something went wrong!");
     }
     setAddedUser(true);
-    fetchUsers().catch((error) => {
-      console.log(error);
-    });
   };
 
   return (
@@ -123,7 +122,7 @@ function UsersList() {
           </div>
           {emailInputHasError && (
             <p className={classes.error_text}>
-              Please enter a valid input email ( ttu email id )
+              Please enter a valid input email
             </p>
           )}
           {addedUser && <p>Added User successfully {enteredEmail}</p>}

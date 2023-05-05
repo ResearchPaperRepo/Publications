@@ -44,6 +44,7 @@
 }
 .abstractContent {
   position: relative;
+  text-align: left;
 }
 
 .expand_btn {
@@ -83,6 +84,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  text-align: left;
 }
 
 .button {
@@ -109,4 +111,8 @@
 .pdf_link {
   grid-column: 2 / 3;
   justify-self: flex-end;
+}
+
+.title {
+  text-align: left;
 }

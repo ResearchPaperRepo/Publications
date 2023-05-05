@@ -1,15 +1,17 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import classes from "./header.module.css";
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthProvider";
 
 function Header() {
   const { loggedIn, setLoggedIn } = useContext(AuthContext);
-
+  const router = useRouter();
   const logoutHandler = () => {
     sessionStorage.removeItem("publications_token");
     sessionStorage.removeItem("publications_email");
     setLoggedIn(false);
+    router.push("/");
   };
 
   return (

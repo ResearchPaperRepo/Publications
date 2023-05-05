@@ -18,8 +18,8 @@ function Register() {
       value.trim() !== "" &&
       value.match(
         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      ) &&
-      value.endsWith("ttu.edu")
+      )
+    // && value.endsWith("ttu.edu")
   );
 
   const {
@@ -67,7 +67,7 @@ function Register() {
     ? `${classes.input} ${classes.invalid}`
     : `${classes.input}`;
 
-  const formLoginHandler = (event) => {
+  const formLoginHandler = async (event) => {
     event.preventDefault();
 
     if (
@@ -76,6 +76,20 @@ function Register() {
       !enteredEmailIsValid
     ) {
       return;
+    }
+
+    const response = await fetch("http://localhost:5000/api/v1/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ email: enteredEmail, password: enteredPassword1 }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(response.msg);
     }
 
     resetPasswordInput1();
@@ -105,7 +119,7 @@ function Register() {
             />
             {emailInputHasError && (
               <p className={classes.error_text}>
-                Please enter a valid input email ( ttu email id )
+                Please enter a valid input email
               </p>
             )}
           </div>

@@ -20,8 +20,8 @@ function Login() {
       value.trim() !== "" &&
       value.match(
         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      ) &&
-      value.endsWith("ttu.edu")
+      )
+    // && value.endsWith("ttu.edu")
   );
 
   const {
@@ -101,7 +101,7 @@ function Login() {
             />
             {emailInputHasError && (
               <p className={classes.error_text}>
-                Please enter a valid input email ( ttu email id )
+                Please enter a valid input email
               </p>
             )}
           </div>
