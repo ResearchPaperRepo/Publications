@@ -14,7 +14,7 @@ const register = async (req, res) => {
 
   if (!allowedUser) {
     throw new UnauthenticatedError(
-      "You are not allowed to Register, Please contact Y.Liu@ttu.edu"
+      `You are not allowed to Register, Please contact ${process.env.ADMIN_EMAIL}`
     );
   }
 

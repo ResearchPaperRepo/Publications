@@ -11,9 +11,9 @@ const grantPermissionToUser = async (req, res) => {
     );
   }
 
-  if (email.toLowerCase() !== "ssaikuma@ttu.edu") {
+  if (email.toLowerCase() !== process.env.ADMIN_EMAIL) {
     throw new UnauthenticatedError(
-      "You are not allowed to Register, Please contact Y.Liu@ttu.edu"
+      `You are not allowed to Register, Please contact ${process.env.ADMIN_EMAIL}`
     );
   }
 
@@ -25,9 +25,9 @@ const grantPermissionToUser = async (req, res) => {
 const registeredUsers = async (req, res) => {
   const { email } = req.body;
 
-  if (email !== "ssaikuma@ttu.edu") {
+  if (email !== process.env.ADMIN_EMAIL) {
     throw new UnauthenticatedError(
-      "You are not allowed to Access Registered users, Please contact Y.Liu@ttu.edu"
+      `You are not allowed to Access Registered users, Please contact ${process.env.ADMIN_EMAIL}`
     );
   }
 
